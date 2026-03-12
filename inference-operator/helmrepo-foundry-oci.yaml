@@ -1,0 +1,13 @@
+# HelmRepository for the Foundry Local Inference Operator
+# Source: MCR OCI registry (PUBLIC — no login required)
+# Full chart URL resolved by Flux:
+#   oci://mcr.microsoft.com/foundrylocalonazurelocal/helmcharts/helm/inference-operator:0.0.1-prp.3
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: foundry-local-oci
+  namespace: flux-config
+spec:
+  type: oci
+  interval: 1h
+  url: oci://mcr.microsoft.com/foundrylocalonazurelocal/helmcharts/helm

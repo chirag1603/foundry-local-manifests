@@ -1,0 +1,31 @@
+# ModelDeployment CR for qwen2.5-0.5b on CPU
+# The Inference Operator watches this CR and:
+#   1. Downloads model from Azure AI Foundry catalog
+#   2. Creates a Pod running ONNX Runtime model server
+#   3. Creates a Service on port 5000 (OpenAI-compatible API)
+#   4. Creates a Secret with API keys (primary + secondary)
+apiVersion: foundrylocal.azure.com/v1
+kind: ModelDeployment
+metadata:
+  name: qwen25-05b-cpu
+  namespace: foundry-local-operator
+  labels:
+    app.kubernetes.io/name: qwen25-05b-cpu
+    app.kubernetes.io/component: inference
+    foundry.azure.com/hardware: cpu
+spec:
+  displayName: "Qwen 2.5 0.5B CPU"
+  model:
+    catalog:
+      name: qwen2.5-0.5b-instruct-generic-cpu
+      version: "1"
+  workloadType: generative
+  compute: cpu
+  replicas: 1
+  resources:
+    requests:
+      cpu: "2"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "8Gi"

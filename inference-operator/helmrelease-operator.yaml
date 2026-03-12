@@ -1,0 +1,21 @@
+# HelmRelease for the Foundry Local Inference Operator
+# Equivalent manual command:
+#   helm install inference-operator \
+#     oci://mcr.microsoft.com/foundrylocalonazurelocal/helmcharts/helm/inference-operator \
+#     --version 0.0.1-prp.3 -n foundry-local-operator
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: inference-operator
+  namespace: flux-config
+spec:
+  interval: 10m
+  targetNamespace: foundry-local-operator
+  chart:
+    spec:
+      chart: inference-operator
+      version: "0.0.1-prp.3"
+      sourceRef:
+        kind: HelmRepository
+        name: foundry-local-oci
+        namespace: flux-config

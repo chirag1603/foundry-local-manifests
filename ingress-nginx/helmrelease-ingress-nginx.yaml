@@ -1,0 +1,29 @@
+# HelmRelease for ingress-nginx controller
+# Used for external access to Foundry Local model endpoints
+# Equivalent manual command (from PrP doc):
+#   helm install ingress-nginx ingress-nginx/ingress-nginx \
+#     --namespace ingress-nginx --create-namespace \
+#     --set controller.service.type=NodePort \
+#     --set controller.hostPort.enabled=true \
+#     --wait
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: flux-config
+spec:
+  interval: 10m
+  targetNamespace: ingress-nginx
+  chart:
+    spec:
+      chart: ingress-nginx
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+        namespace: flux-config
+  values:
+    controller:
+      service:
+        type: NodePort
+      hostPort:
+        enabled: true

@@ -1,0 +1,10 @@
+# HelmRepository for ingress-nginx
+# Source: https://kubernetes.github.io/ingress-nginx (PUBLIC)
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: ingress-nginx
+  namespace: flux-config
+spec:
+  interval: 1h
+  url: https://kubernetes.github.io/ingress-nginx
